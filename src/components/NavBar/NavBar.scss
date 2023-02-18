@@ -1,0 +1,82 @@
+.NavBar {
+  width: 100vw;
+  background-color: black;
+  height: 80px;
+  z-index: 10;
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    position: relative;
+    color: var(--accent-color);
+
+    .nav-list {
+      ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .list-item {
+          padding: 5px 10px;
+          cursor: pointer;
+          transition: 0.5s ease;
+        }
+
+        .list-item:hover {
+          background-color: rgb(97, 95, 95);
+        }
+      }
+    }
+
+    .cart-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      font-size: 1.8rem;
+      cursor: pointer;
+      right: 0;
+      position: absolute;
+
+      .count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        display: flex;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        font-size: 0.5rem;
+        color: var(--accent-color);
+        padding: 0.2rem;
+      }
+    }
+    .nav-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+
+      h1 {
+        color: white;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .NavBar {
+    .nav-container {
+      .nav-list {
+        display: none;
+      }
+
+      .nav-title {
+        position: static;
+        transform: translateX(0);
+      }
+    }
+  }
+}

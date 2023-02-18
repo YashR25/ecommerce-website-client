@@ -1,0 +1,33 @@
+.Home {
+  .collection {
+    margin-top: 80px;
+    .info {
+      padding-bottom: 10px;
+      .heading {
+        font-size: 2rem;
+        font-weight: bolder;
+      }
+      .subheading {
+        margin-top: 10px;
+        color: var(--secondary-text-color);
+      }
+    }
+  }
+
+  .content {
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    row-gap: 40px;
+    column-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .Home {
+    .content {
+      flex-direction: column;
+    }
+  }
+}
