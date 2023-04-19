@@ -1,17 +1,53 @@
 import React, { useEffect, useState } from "react";
 import "./Collections.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Product from "../../components/Product/Product";
+import { axiosClient } from "../../utils/axiosClient";
 
 function Collections() {
-  const categories = ["type1", "type2", "type3"];
+  const [categories, setCategories] = useState(null);
   const [categoryId, setCategoryId] = useState();
+  const [products, setProducts] = useState(null);
+  const navigate = useNavigate();
+
+  const sortOption = [
+    {
+      value: "Price-Low-To-High",
+      sort: "price",
+    },
+    {
+      value: "Newest First",
+      sort: "createdAt",
+    },
+  ];
+
+  const [sortBy, setSortBy] = useState(sortOption[0].sort);
 
   const params = useParams();
 
+  async function fetchData() {
+    const url = params.categoryId
+      ? `/products?filters[category][key][$eq]=${params.categoryId}&populate=image&sort=${sortBy}`
+      : `/products?populate=image&sort=${sortBy}`;
+    // console.log(url);
+    const productResponse = await axiosClient.get(url);
+    const categoryResponse = await axiosClient.get(`/categories`);
+
+    setCategories(categoryResponse.data.data);
+
+    setProducts(productResponse.data.data);
+    console.log(productResponse);
+  }
+
   useEffect(() => {
     setCategoryId(params.categoryId);
-  }, [params]);
+    fetchData();
+  }, [params, sortBy]);
+
+  function handleSortCategory(e) {
+    const sortKey = e.target.value;
+    setSortBy(sortKey);
+  }
 
   return (
     <div className="Collections">
@@ -28,10 +64,15 @@ function Collections() {
           <div className="sort-by">
             <div className="sort-by-container">
               <h3 className="sort-by-text">Sort By</h3>
-              <select className="select-sort-by" name="sort-by" id="sort-by">
-                <option value="a">a</option>
-                <option value="b">b</option>
-                <option value="c">c</option>
+              <select
+                className="select-sort-by"
+                name="sort-by"
+                id="sort-by"
+                onChange={handleSortCategory}
+              >
+                {sortOption.map((item) => {
+                  return <option value={item.sort}>{item.value}</option>;
+                })}
               </select>
             </div>
           </div>
@@ -40,30 +81,32 @@ function Collections() {
           <div className="filter-box">
             <div className="category-filter">
               <h3>Category</h3>
-              {categories.map((item) => {
+              {categories?.map((item) => {
                 return (
-                  <div key={item} className="filter-radio">
+                  <div
+                    key={item}
+                    className="filter-radio"
+                    onClick={() => navigate(`/category/${item.attributes.key}`)}
+                  >
                     <input
                       name="category"
                       type="radio"
-                      value={item}
-                      id={item}
-                      checked={item === categoryId}
+                      value={item.attributes.title}
+                      id={item.id}
+                      checked={item.attributes.key === categoryId}
                     />
-                    <label htmlFor={item}>{item}</label>
+                    <label htmlFor={item.attributes.title}>
+                      {item.attributes.title}
+                    </label>
                   </div>
                 );
               })}
             </div>
           </div>
           <div className="product-box">
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            {products?.map((product) => (
+              <Product key={product.attributes.key} product={product} />
+            ))}
           </div>
         </div>
       </div>

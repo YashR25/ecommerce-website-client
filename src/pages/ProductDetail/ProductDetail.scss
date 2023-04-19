@@ -79,6 +79,12 @@
   }
 }
 
+.loader {
+  transform: translateX(50%);
+  position: absolute;
+  left: 50%;
+  top: 200px;
+}
 @media screen and (max-width: 800px) {
   .ProductDetail {
     .product-layout {
