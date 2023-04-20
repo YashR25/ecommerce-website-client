@@ -1,4 +1,4 @@
-`Posterz`
+### `Posterz`
 
 A Full Stack Ecommerce Web App
 
