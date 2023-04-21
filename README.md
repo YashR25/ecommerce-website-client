@@ -4,7 +4,7 @@ A Full Stack Ecommerce Web App
 
 ### `Youtube Demo`
 
-[![Screenshot from 2023-04-20 19-01-12](https://user-images.githubusercontent.com/95738812/233394575-26ce0672-f8a1-477a-a668-858d55911924.png)](https://youtu.be/3607XdefIYo)
+[![Screenshot from 2023-04-20 19-01-12](https://user-images.githubusercontent.com/95738812/233394575-26ce0672-f8a1-477a-a668-858d55911924.png)|width=100](https://youtu.be/3607XdefIYo)
 
 ### `Screenshots`
 
